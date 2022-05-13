@@ -11,14 +11,49 @@
 <body>
   <div class="container">
     <header class="header">
-      Header
-      <button class="add-book" title="Add book">Add</button>
+
+      <div class="wrapper">
+
+        <div class="header-title">Local Library</div>
+        <div class="search">
+          <div class="search-icon">
+            <label for="search-input" class="search-icon">
+              <img src="./images/magnify.svg" alt="search icon">
+            </label>
+          </div>
+          <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Book title filter...">
+          </div>
+        </div>
+        
+      </div>
     </header>
     <div class="content">
-      <div class="book-list">
 
+      <div class="content-wrapper">
+        <div class="book-sidebar-container">
+          <div class="book-sidebar-contents">
+            <div class="book-stats">
+              <div id="total-books">Total books: </div>
+              <div id="total-unread">Unread: </div>
+              <div id="total-pages">Total pages: </div>
+            </div>
+            <button class="add-book" title="Add book">Add book</button>
+          </div>
+        </div>
+        <div class="book-list">
+
+        </div>
       </div>
+
     </div>
   </div>
+
+  <div class="modal">
+    <div class="modal-content">
+      Hello!
+    </div>
+  </div>
+
 </body>
 </html>

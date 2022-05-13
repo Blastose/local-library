@@ -11,21 +11,128 @@ body {
   grid-template-rows: auto 1fr;
 }
 
+.wrapper {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .header {
-  background-color: rgb(233, 197, 144);
+  background-color: rgb(255, 191, 96);
   z-index: 1;
   box-shadow: 0px 5px 4px -4px rgb(209, 193, 170);
+}
+
+.header .wrapper {
+  padding: 0px 32px;
+
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 32px;
+  font-weight: bold;
+  padding: 32px 0px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"] {
+  all: unset;
+}
+
+input[type="text"] {
+  background-color: rgb(255, 254, 242);
+  width: 100%;
+  box-sizing: border-box;
+
+  border-radius: 16px;
+  padding: 4px 14px;
+  
+}
+
+button {
+  all: unset;
+}
+
+button {
+  background-color: rgb(255, 234, 234);
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 .content {
   background-color: rgb(255, 244, 227);
 }
 
-.book-list {
-  background-color: rgb(176, 255, 183);
+.content .content-wrapper {
+  display: grid;
+  padding: 16px;
+  grid-template-rows: min-content;
+  gap: 16px
 }
 
-.book-{
+.book-stats {
+  background-color: rgb(241, 197, 189);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 1.3em;
+}
+
+.book-list {
+  background-color: rgb(176, 255, 183);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: minmax(200px, min-content);
+  gap: 15px;
+}
+
+.book-card {
   border-radius: 5px;
   background-color: rgb(253, 184, 184);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(145, 145, 145, 0.103);
+}
+
+@media only screen and (min-width: 800px) {
+  .content .content-wrapper {
+    grid-template-columns: 1fr 3fr;
+    gap: 16px;
+  }
+
+  .book-sidebar-contents {
+    position: sticky;
+    top: 8px;
+  }
 }
