@@ -24,7 +24,7 @@ body {
 }
 
 .header {
-  background-color: rgb(255, 191, 96);
+  background-color: rgb(255, 210, 142);
   z-index: 1;
   box-shadow: 0px 5px 4px -4px rgb(209, 193, 170);
 }
@@ -54,11 +54,13 @@ body {
   align-items: center;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   all: unset;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   background-color: rgb(255, 254, 242);
   width: 100%;
   box-sizing: border-box;
@@ -117,12 +119,50 @@ button {
 }
 
 .modal {
-  display: none;
   position: fixed;
-  z-index: 9999;
+  overflow-y: auto;
+  left: 0;
+  top: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  background-color: rgba(145, 145, 145, 0.103);
+  background-color: rgba(145, 145, 145, 0.507);
+}
+
+.modal-hide {
+  display: none;
+}
+
+.modal-show {
+  display: block;
+}
+
+.modal-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  padding: 18px;
+  width: min(80%, 1000px);
+  background-color: rgb(255, 196, 196);
+  transition-duration: 0.2s;
+  box-shadow: 0px 0px 8px rgb(148, 148, 148);
+  border-radius: 12px;
+}
+
+.modal-input {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-buttons { 
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
 }
 
 @media only screen and (min-width: 800px) {
@@ -134,5 +174,15 @@ button {
   .book-sidebar-contents {
     position: sticky;
     top: 8px;
+  }
+
+  .modal-content {
+    width: min(50%, 750px);
+  }
+
+  .modal-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
   }
 }

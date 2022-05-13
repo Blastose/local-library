@@ -40,4 +40,26 @@ addBookButton.addEventListener('click', () => {
   library.addBookToLibrary(book);
 
   bookList.appendChild(createBookCard(book));
+
+  const modal = document.querySelector('.modal');
+  modal.classList.remove('modal-hide');
+  modal.classList.add('modal-show');
+});
+
+
+const modalContainer = document.querySelector('.modal-container');
+const modal = document.querySelector('.modal');
+modalContainer.addEventListener('click', (e) => {
+  console.log(e.target);
+  console.log(e.currentTarget);
+  if (e.target === e.currentTarget) {
+    modal.classList.remove('modal-show');
+    modal.classList.add('modal-hide');
+  }
+});
+
+const modalCancelButton = document.querySelector('.cancel-button');
+modalCancelButton.addEventListener('click', () => {
+  modal.classList.remove('modal-show');
+  modal.classList.add('modal-hide');
 });
