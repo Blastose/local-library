@@ -90,11 +90,11 @@ button:hover {
 }
 
 button:focus {
-  outline: 2px solid rgb(147, 167, 207);
+  outline: 2px solid rgb(100, 131, 194);
 }
 
 .content {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(244, 248, 255);
 }
 
 .content .content-wrapper {

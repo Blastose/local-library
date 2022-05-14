@@ -141,7 +141,7 @@ DOM.prototype.createBookCard = function(book, id, library) {
 
   divBookTitle.textContent = `${book.title}`;
   divBookAuthor.textContent = `by ${book.author}`;
-  divBookPages.textContent = `${book.numberOfPages} pages`;
+  divBookPages.textContent = book.numberOfPages ? `${book.numberOfPages} pages` : `0 pages`;
 
   return divBookCard;
 }
