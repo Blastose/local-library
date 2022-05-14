@@ -30,9 +30,35 @@ Library.prototype.removeBook = function(index) {
   this.books.splice(index, 1);
 }
 
+Library.prototype.numBooks = function() {
+  return this.books.length;
+}
+
+Library.prototype.numReadBooks = function() {
+  let count = this.books.reduce((prev, next) => {
+    return prev + (next.read === true);
+  }, 0);
+  return count;
+}
+
+Library.prototype.numPages = function() {
+  let count = this.books.reduce((prev, next) => {
+    if (Number(next.numberOfPages)) {
+      return Number(prev) + Number((next.numberOfPages));
+    } else {
+      return prev;
+    }
+  }, 0);
+  return count;
+}
+
 function DOM() {
   this.modal = document.querySelector('.modal');
   this.bookList = document.querySelector('.book-list');
+
+  this.totalBooks = document.querySelector('#total-books');
+  this.totalUnread = document.querySelector('#total-unread');
+  this.totalPages = document.querySelector('#total-pages');
 }
 
 DOM.prototype.showModal = function() {
@@ -77,6 +103,7 @@ DOM.prototype.createBookCard = function(book, id, library) {
   buttonDeleteBook.addEventListener('click', (e) => {
     library.removeBook(e.currentTarget.dataset["bookId"]);
     this.displayBookList(library);
+    dom.updateLibraryStats(library);
   });
 
   labelToggleRead.setAttribute("for", `toggle-read-${id}`);
@@ -88,6 +115,7 @@ DOM.prototype.createBookCard = function(book, id, library) {
   inputCheckboxRead.checked = book.read;
   inputCheckboxRead.addEventListener('change', () => {
     library.getBook(id).read = inputCheckboxRead.checked;
+    dom.updateLibraryStats(library);
   });
 
   divBookCard.setAttribute("id", `book-${id}`);
@@ -109,6 +137,12 @@ DOM.prototype.createBookCard = function(book, id, library) {
   divBookPages.textContent = `${book.numberOfPages} pages`;
 
   return divBookCard;
+}
+
+DOM.prototype.updateLibraryStats = function(library) {
+  this.totalBooks.textContent = `Total books: ${library.numBooks()}`;
+  this.totalUnread.textContent = `Unread: ${library.numBooks() - library.numReadBooks()}`; 
+  this.totalPages.textContent = `Total pages: ${library.numPages()}`;
 }
 
 function createElementWithClass(elementType, elementClass) {
@@ -156,4 +190,5 @@ modalCancelButton.addEventListener('click', () => {
 const modalAddButtion = document.querySelector('.add-button');
 modalAddButtion.addEventListener('click', () => {
   addBookFromModal();
+  dom.updateLibraryStats(library);
 });
