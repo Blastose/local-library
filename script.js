@@ -26,6 +26,10 @@ Library.prototype.getBook = function(index) {
   return this.books[index];
 }
 
+Library.prototype.removeBook = function(index) {
+  this.books.splice(index, 1);
+}
+
 function DOM() {
   this.modal = document.querySelector('.modal');
   this.bookList = document.querySelector('.book-list');
@@ -50,18 +54,12 @@ DOM.prototype.clearBookList = function() {
 DOM.prototype.displayBookList = function(library) {
   this.clearBookList();
   library.books.forEach((book, index) => {
-    const bookCard = createBookCard(book, index);
+    const bookCard = this.createBookCard(book, index, library);
     this.bookList.appendChild(bookCard);
   });
 }
 
-function createElementWithClass(elementType, elementClass) {
-  const element = document.createElement(elementType);
-  element.classList.add(elementClass);
-  return element;
-}
-
-function createBookCard(book, id) {
+DOM.prototype.createBookCard = function(book, id, library) {
   const divBookCard = createElementWithClass("div", "book-card");
   const divHighlight = createElementWithClass("div", "book-card-highlight");
   const divBookInfo = createElementWithClass("div", "book-info");
@@ -75,6 +73,12 @@ function createBookCard(book, id) {
   const buttonDeleteBook = createElementWithClass("button", "delete-book");
   buttonDeleteBook.textContent = "Delete";
   buttonDeleteBook.setAttribute("data-book-id", `${id}`);
+
+  buttonDeleteBook.addEventListener('click', (e) => {
+    library.removeBook(e.currentTarget.dataset["bookId"]);
+    this.displayBookList(library);
+  });
+
   labelToggleRead.setAttribute("for", `toggle-read-${id}`);
   labelToggleRead.textContent = "Read?";
 
@@ -102,6 +106,12 @@ function createBookCard(book, id) {
   divBookPages.textContent = `${book.numberOfPages} pages`;
 
   return divBookCard;
+}
+
+function createElementWithClass(elementType, elementClass) {
+  const element = document.createElement(elementType);
+  element.classList.add(elementClass);
+  return element;
 }
 
 const dom = new DOM();
@@ -135,7 +145,7 @@ modalAddButtion.addEventListener('click', () => {
   modalBookTitle.value = "";
   modalBookAuthor.value = "";
   modalBookPages.value = "";
-  
+
   library.addBookToLibrary(book);
   dom.displayBookList(library);
   dom.hideModal();
