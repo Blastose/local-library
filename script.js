@@ -77,11 +77,18 @@ DOM.prototype.clearBookList = function() {
   }
 }
 
-DOM.prototype.displayBookList = function(library) {
+DOM.prototype.displayBookList = function(library, filter) {
   this.clearBookList();
   library.books.forEach((book, index) => {
-    const bookCard = this.createBookCard(book, index, library);
-    this.bookList.appendChild(bookCard);
+    if (filter !== undefined) {
+      if (String(book.title).includes(filter)) {
+        const bookCard = this.createBookCard(book, index, library);
+        this.bookList.appendChild(bookCard);
+      }
+    } else {
+      const bookCard = this.createBookCard(book, index, library);
+      this.bookList.appendChild(bookCard);
+    }
   });
 }
 
@@ -192,3 +199,8 @@ modalAddButtion.addEventListener('click', () => {
   addBookFromModal();
   dom.updateLibraryStats(library);
 });
+
+const bookTitleSearchInput = document.querySelector('#search-input');
+bookTitleSearchInput.addEventListener('input', (e) => {
+  dom.displayBookList(library, e.currentTarget.value);
+}); 
