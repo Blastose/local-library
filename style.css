@@ -110,8 +110,6 @@ button:hover {
 }
 
 .book-list {
-  background-color: rgb(176, 255, 183);
-
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: minmax(200px, min-content);
