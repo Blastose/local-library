@@ -86,6 +86,9 @@ DOM.prototype.createBookCard = function(book, id, library) {
   inputCheckboxRead.setAttribute("type", "checkbox");
   inputCheckboxRead.setAttribute("id", `toggle-read-${id}`);
   inputCheckboxRead.checked = book.read;
+  inputCheckboxRead.addEventListener('change', () => {
+    library.getBook(id).read = inputCheckboxRead.checked;
+  });
 
   divBookCard.setAttribute("id", `book-${id}`);
   divBookCard.appendChild(divHighlight);
@@ -114,6 +117,21 @@ function createElementWithClass(elementType, elementClass) {
   return element;
 }
 
+function addBookFromModal() {
+  const modalBookTitle = document.querySelector('#modal-book-title');
+  const modalBookAuthor = document.querySelector('#modal-book-author');
+  const modalBookPages = document.querySelector('#modal-book-pages');
+
+  const book = new Book(modalBookTitle.value, modalBookAuthor.value, modalBookPages.value, false);
+  modalBookTitle.value = "";
+  modalBookAuthor.value = "";
+  modalBookPages.value = "";
+
+  library.addBookToLibrary(book);
+  dom.displayBookList(library);
+  dom.hideModal();
+}
+
 const dom = new DOM();
 const library = new Library();
 
@@ -137,16 +155,5 @@ modalCancelButton.addEventListener('click', () => {
 
 const modalAddButtion = document.querySelector('.add-button');
 modalAddButtion.addEventListener('click', () => {
-  const modalBookTitle = document.querySelector('#modal-book-title');
-  const modalBookAuthor = document.querySelector('#modal-book-author');
-  const modalBookPages = document.querySelector('#modal-book-pages');
-
-  const book = new Book(modalBookTitle.value, modalBookAuthor.value, modalBookPages.value, false);
-  modalBookTitle.value = "";
-  modalBookAuthor.value = "";
-  modalBookPages.value = "";
-
-  library.addBookToLibrary(book);
-  dom.displayBookList(library);
-  dom.hideModal();
+  addBookFromModal();
 });
