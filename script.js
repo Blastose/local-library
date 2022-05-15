@@ -175,8 +175,7 @@ function addBookFromModal() {
 
 const dom = new DOM();
 const library = new Library();
-library.addBookToLibrary(new Book("", "", "", true));
-dom.displayBookList(library);
+
 const addBookButton = document.querySelector('.add-book');
 addBookButton.addEventListener('click', () => {
   dom.showModal();
